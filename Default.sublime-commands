@@ -1,0 +1,32 @@
+[
+    {
+        "caption": "King: Select Next Number (int)",
+        "command": "king_select_number",
+        "args": {
+            "select_type": "int"
+        }
+    },
+    {
+        "caption": "King: Select Next Number (float)",
+        "command": "king_select_number",
+        "args": {
+            "select_type": "float"
+        }
+    },
+    {
+        "caption": "King: Increase by 1 (int)",
+        "command": "king_manipulate_number",
+        "args": {
+            "manipulation": "x + 1",
+            "select_type": "int"
+        }
+    },
+    {
+        "caption": "King: Increase by 1 (float)",
+        "command": "king_manipulate_number",
+        "args": {
+            "manipulation": "x + 1",
+            "select_type": "float"
+        }
+    }
+]
