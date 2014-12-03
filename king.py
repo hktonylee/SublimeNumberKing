@@ -27,7 +27,9 @@ settings = Settings()
 class Calculator(object):
     class CalculatorTransformer(NodeTransformer):
         def visit_Name(self, node):
-            if node.id in ('ceil', 'copysign', 'fabs', 'factorial', 'floor', 'fmod', 'frexp', 'fsum', 'isfinite', 'isinf', 'isnan', 'ldexp', 'modf', 'trunc', 'exp', 'expm1', 'log', 'log1p', 'log2', 'log10', 'pow', 'pow', 'sqrt', 'acos', 'asin', 'atan', 'atan2', 'cos', 'hypot', 'sin', 'tan', 'degrees', 'radians', 'acosh', 'asinh', 'atanh', 'cosh', 'sinh', 'tanh', 'erf', 'erfc', 'gamma', 'lgamma', 'pi', 'e', ):
+            accepted_nodes = {'x', 'i'}
+            accepted_nodes |= {'ceil', 'copysign', 'fabs', 'factorial', 'floor', 'fmod', 'frexp', 'fsum', 'isfinite', 'isinf', 'isnan', 'ldexp', 'modf', 'trunc', 'exp', 'expm1', 'log', 'log1p', 'log2', 'log10', 'pow', 'pow', 'sqrt', 'acos', 'asin', 'atan', 'atan2', 'cos', 'hypot', 'sin', 'tan', 'degrees', 'radians', 'acosh', 'asinh', 'atanh', 'cosh', 'sinh', 'tanh', 'erf', 'erfc', 'gamma', 'lgamma', 'pi', 'e'}
+            if node.id in accepted_nodes:
                 return node
             else:
                 return None # block all other strange identifier
@@ -42,7 +44,7 @@ class Calculator(object):
         self.ns['__builtins__'] = None
 
     def calculate(self, **kwargs):
-        for key, value in kwargs.iteritems():
+        for key, value in kwargs.items():
             self.ns[key] = value
         return eval(self.code, self.ns)
 
@@ -83,22 +85,38 @@ class KingSelectNumberCommand(sublime_plugin.TextCommand):
             current_sel.add(region)
 
 
-class KingInterlacedSelectCommand(sublime_plugin.WindowCommand):
+class KingInterlacedSelectCommand(sublime_plugin.TextCommand):
     def onDone(self, text):
         try:
             count = int(text)
+            if count < 1:
+                raise ValueError()
         except ValueError:
-            sublime.error_message('Interlaced count must be integer.')
-        # TODO: 
+            sublime.error_message('Interlaced count must be positive integer.')
+        
+        current_sel = self.view.sel()
+        all_regions = []
+        i = 0
+        count += 1
+        for region in current_sel:
+            if i % count != 0:
+                current_sel.subtract(region)
+            # if i % count == 0:
+            #     all_regions.append(region)
+            i += 1
+
+        # current_sel.clear()
+        # for region in all_regions:
+        #     current_sel.add(region)
 
     def askInterlacedCount(self):
-        self.window.show_input_panel('Please the interlaced count',
-                                     1,
-                                     self.onDone,
-                                     None,
-                                     None)
+        self.view.window().show_input_panel('Please the interlaced count',
+                                            '1',
+                                            self.onDone,
+                                            None,
+                                            None)
 
-    def run(self):
+    def run(self, edit):
         self.askInterlacedCount()
 
 
@@ -109,11 +127,13 @@ class KingSelectAllNumbersCommand(sublime_plugin.TextCommand):
 
         current_sel = self.view.sel()
         all_regions = self.view.find_all(pattern)
-        all_regions = list(filter(lambda r: current_sel.contains(r), all_regions))
+        if len(current_sel) > 1 or not current_sel[0].empty():
+            all_regions = list(filter(lambda r: current_sel.contains(r), all_regions))
 
-        current_sel.clear()
-        for region in all_regions:
-            current_sel.add(region)
+        if len(all_regions) > 0:
+            current_sel.clear()
+            for region in all_regions:
+                current_sel.add(region)
 
 
 class KingManipulateNumberCommand(sublime_plugin.TextCommand):
@@ -132,35 +152,25 @@ class KingManipulateNumberCommand(sublime_plugin.TextCommand):
         i = 0
         for sel in current_sel:
             result = calculator.calculate(i=i, x=transformer(view.substr(sel)))
+            if float.is_integer(result):
+                result = int(result)
             view.replace(edit, sel, str(result))
             i += 1
 
 
-class KingWonderfulManipulateCommand(sublime_plugin.WindowCommand):
+class KingWonderfulManipulateCommand(sublime_plugin.TextCommand):
     def onDone(self, text):
         settings.set_last_used_formula(text)
-        self.calculator = Calculator(text)
-        active_view = self.window.active_view()
-        active_view.run_command('select_next_number')
-        sels = active_view.sel()
-        try:
-            edit = active_view.begin_edit()
-            i = 0
-            for self.position, sel in enumerate(sels):
-                result = self.calculator.calculate(i=i, x=int(active_view.substr(sel)))
-                i += 1
-                active_view.replace(edit, sel, str(result))
-        finally:
-            active_view.end_edit(edit)
+        self.view.run_command('king_manipulate_number', {'manipulation': text})
 
     def askFormula(self):
-        self.window.show_input_panel("Please enter the batch formula. The variable 'x' will be substituted.",
-                                     settings.load_last_used_formula(),
-                                     self.onDone,
-                                     None,
-                                     None)
+        self.view.window().show_input_panel("Please enter the batch formula. The variable 'x' will be substituted.",
+                                            settings.load_last_used_formula(),
+                                            self.onDone,
+                                            None,
+                                            None)
 
-    def run(self):
+    def run(self, edit):
         self.askFormula()
 
 

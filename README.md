@@ -23,9 +23,13 @@ Coming Features
 
  - Brand new way to operate tons of numbers
 
- - Able to operate on 1GB file
+ - CSV handling
 
  - Many! Just tell me ;-)
 
- - CSV handling
+
+Wishlist
+========
+
+ - Able to operate on 1GB file
 

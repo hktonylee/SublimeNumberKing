@@ -19,7 +19,7 @@
     },
     {
         "caption": "King: Interlaced Select",
-        "command": "king_interlanced_select",
+        "command": "king_interlaced_select",
         "args": {
         }
     },
@@ -44,7 +44,7 @@
         }
     },
     {
-        "caption": "King: Batch Number Manipulation",
+        "caption": "King: Transform Numbers",
         "command": "king_wonderful_manipulate",
         "args": {
         }
