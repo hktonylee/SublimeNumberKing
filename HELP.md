@@ -1,5 +1,4 @@
-SublimeNumberKing
-=================
+
 
 In `Number King`, you manipulate number like a king!
 

@@ -1,32 +1,52 @@
 [
     {
-        "caption": "King: Select Next Number (int)",
+        "caption": "King: Help!",
+        "command": "king_need_help",
+        "args": {
+        }
+    },
+    {
+        "caption": "King: Switch mode (int / float)",
+        "command": "king_switch_number_type",
+        "args": {
+        }
+    },
+    {
+        "caption": "King: Select Next Number",
         "command": "king_select_number",
         "args": {
-            "select_type": "int"
         }
     },
     {
-        "caption": "King: Select Next Number (float)",
-        "command": "king_select_number",
+        "caption": "King: Interlaced Select",
+        "command": "king_interlanced_select",
         "args": {
-            "select_type": "float"
         }
     },
     {
-        "caption": "King: Increase by 1 (int)",
+        "caption": "King: Select All Numbers in Selection",
+        "command": "king_select_all_numbers",
+        "args": {
+        }
+    },
+    {
+        "caption": "King: Increase by 1",
         "command": "king_manipulate_number",
         "args": {
-            "manipulation": "x + 1",
-            "select_type": "int"
+            "manipulation": "x + 1"
         }
     },
     {
-        "caption": "King: Increase by 1 (float)",
+        "caption": "King: Decrease by 1",
         "command": "king_manipulate_number",
         "args": {
-            "manipulation": "x + 1",
-            "select_type": "float"
+            "manipulation": "x - 1"
+        }
+    },
+    {
+        "caption": "King: Batch Number Manipulation",
+        "command": "king_wonderful_manipulate",
+        "args": {
         }
     }
 ]
