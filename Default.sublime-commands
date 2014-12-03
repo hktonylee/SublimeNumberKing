@@ -6,46 +6,65 @@
         }
     },
     {
-        "caption": "King: Switch mode (int / float)",
+        "caption": "King: Settings: Switch mode (int / float)",
         "command": "king_switch_number_type",
         "args": {
         }
     },
     {
-        "caption": "King: Select Next Number",
+        "caption": "King: Number: Select Next Number",
         "command": "king_select_number",
         "args": {
         }
     },
     {
-        "caption": "King: Interlaced Select",
-        "command": "king_interlaced_select",
-        "args": {
-        }
-    },
-    {
-        "caption": "King: Select All Numbers in Selection",
+        "caption": "King: Number: Select All Numbers in Selection",
         "command": "king_select_all_numbers",
         "args": {
         }
     },
     {
-        "caption": "King: Increase by 1",
+        "caption": "King: Number: Increase by 1",
         "command": "king_manipulate_number",
         "args": {
             "manipulation": "x + 1"
         }
     },
     {
-        "caption": "King: Decrease by 1",
+        "caption": "King: Number: Decrease by 1",
         "command": "king_manipulate_number",
         "args": {
             "manipulation": "x - 1"
         }
     },
     {
-        "caption": "King: Transform Numbers",
+        "caption": "King: Number: Number Sequence",
+        "command": "king_manipulate_number",
+        "args": {
+            "manipulation": "i + 1"
+        }
+    },
+    {
+        "caption": "King: Number: Transform Numbers",
         "command": "king_wonderful_manipulate",
+        "args": {
+        }
+    },
+    {
+        "caption": "King: Selection: Modify Selection",
+        "command": "king_wonderfully_manipulate_selection",
+        "args": {
+        }
+    },
+    {
+        "caption": "King: Selection: Interlaced Select",
+        "command": "king_interlaced_select",
+        "args": {
+        }
+    },
+    {
+        "caption": "King: CSV: Select i-th column in CSV",
+        "command": "king_select_csv_field",
         "args": {
         }
     }

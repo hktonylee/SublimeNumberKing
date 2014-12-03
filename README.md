@@ -1,7 +1,7 @@
 SublimeNumberKing
 =================
 
-In `Number King`, you manipulate number like a king! The objective of the plugin is to bring spreadsheet features to Sublime Text. After you master this plugin, you can safely uninstall your Excel ;-)
+In `SublimeNumberKing`, you manipulate number like a king! The objective of the plugin is to bring spreadsheet features to Sublime Text. After you master this plugin, you can safely uninstall your Excel ;-)
 
 
 Features
@@ -10,6 +10,8 @@ Features
  - You can choose different number format (int or float).
 
  - You can select next number, either in selection or in cursor.
+
+ - You can select the i-th column in CSV.
 
  - You can carry out any mathematical manipulation on selected numbers.
 
