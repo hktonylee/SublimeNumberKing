@@ -99,15 +99,13 @@ class KingInterlacedSelectCommand(sublime_plugin.TextCommand):
         i = 0
         count += 1
         for region in current_sel:
-            if i % count != 0:
-                current_sel.subtract(region)
-            # if i % count == 0:
-            #     all_regions.append(region)
+            if i % count == 0:
+                all_regions.append(region)
             i += 1
 
-        # current_sel.clear()
-        # for region in all_regions:
-        #     current_sel.add(region)
+        current_sel.clear()
+        for region in all_regions:
+            current_sel.add(region)
 
     def askInterlacedCount(self):
         self.view.window().show_input_panel('Please the interlaced count',
