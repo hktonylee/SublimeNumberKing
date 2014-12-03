@@ -1,12 +1,10 @@
 
+Batch Number Manipulation Reference
+===================================
 
-In `Number King`, you manipulate number like a king!
+You can use Python expression to manipulate all the numbers you selected.
 
-
-Batch Number Manipulation
-=========================
-
-Useful symbols:
+Some useful variables:
 
 | Symbol | Description                               |
 | ------ | ----------------------------------------- |
@@ -15,10 +13,52 @@ Useful symbols:
 
 Supported functions / constants:
 
-- `sin`
-- `cos`
-- `tan`
-- `log`
-- `e`
-- `pi`
+ - `ceil`
+ - `copysign`
+ - `fabs`
+ - `factorial`
+ - `floor`
+ - `fmod`
+ - `frexp`
+ - `fsum`
+ - `isfinite`
+ - `isinf`
+ - `isnan`
+ - `ldexp`
+ - `modf`
+ - `trunc`
+ - `exp`
+ - `expm1`
+ - `log`
+ - `log1p`
+ - `log2`
+ - `log10`
+ - `pow`
+ - `pow`
+ - `sqrt`
+ - `acos`
+ - `asin`
+ - `atan`
+ - `atan2`
+ - `cos`
+ - `hypot`
+ - `sin`
+ - `tan`
+ - `degrees`
+ - `radians`
+ - `acosh`
+ - `asinh`
+ - `atanh`
+ - `cosh`
+ - `sinh`
+ - `tanh`
+ - `erf`
+ - `erfc`
+ - `gamma`
+ - `lgamma`
+ - `pi`
+ - `e`
+
+Reference: https://docs.python.org/3.3/library/math.html
+
 

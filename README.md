@@ -1,25 +1,31 @@
 SublimeNumberKing
 =================
 
-In `Number King`, you manipulate number like a king!
+In `Number King`, you manipulate number like a king! The objective of the plugin is to bring spreadsheet features to Sublime Text. After you master this plugin, you can safely uninstall your Excel ;-)
 
 
-Batch Number Manipulation
-=========================
+Features
+========
 
-Useful symbols:
+ - You can choose different number format (int or float).
 
-| Symbol | Description                               |
-| ------ | ----------------------------------------- |
-| `x`    | the selected number                       |
-| `i`    | the index of the selection (start from 0) |
+ - You can select next number, either in selection or in cursor.
 
-Supported functions / constants:
+ - You can carry out any mathematical manipulation on selected numbers.
 
-- `sin`
-- `cos`
-- `tan`
-- `log`
-- `e`
-- `pi`
+ - You can skip in-between selection (interlacing selection).
+
+
+Coming Features
+===============
+
+ - Aggregation
+
+ - Brand new way to operate tons of numbers
+
+ - Able to operate on 1GB file
+
+ - Many! Just tell me ;-)
+
+ - CSV handling
 

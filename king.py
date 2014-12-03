@@ -27,7 +27,7 @@ settings = Settings()
 class Calculator(object):
     class CalculatorTransformer(NodeTransformer):
         def visit_Name(self, node):
-            if node.id in ('x', 'i', 'sin', 'cos', 'tan', 'log', 'e', 'pi'):
+            if node.id in ('ceil', 'copysign', 'fabs', 'factorial', 'floor', 'fmod', 'frexp', 'fsum', 'isfinite', 'isinf', 'isnan', 'ldexp', 'modf', 'trunc', 'exp', 'expm1', 'log', 'log1p', 'log2', 'log10', 'pow', 'pow', 'sqrt', 'acos', 'asin', 'atan', 'atan2', 'cos', 'hypot', 'sin', 'tan', 'degrees', 'radians', 'acosh', 'asinh', 'atanh', 'cosh', 'sinh', 'tanh', 'erf', 'erfc', 'gamma', 'lgamma', 'pi', 'e', ):
                 return node
             else:
                 return None # block all other strange identifier
@@ -109,7 +109,7 @@ class KingSelectAllNumbersCommand(sublime_plugin.TextCommand):
 
         current_sel = self.view.sel()
         all_regions = self.view.find_all(pattern)
-        all_regions = filter(lambda r: current_sel.contains(r), all_regions)
+        all_regions = list(filter(lambda r: current_sel.contains(r), all_regions))
 
         current_sel.clear()
         for region in all_regions:
