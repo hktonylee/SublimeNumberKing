@@ -1,8 +1,9 @@
 
 import sublime
 import sublime_plugin
-from settings import *
+from settings import settings
 import utils
+from calculator import Calculator
 
 
 class KingSelectNumberCommand(sublime_plugin.TextCommand):
@@ -36,7 +37,7 @@ class KingSelectAllNumbersCommand(sublime_plugin.TextCommand):
 
 
 class KingSelectCsvFieldCommand(sublime_plugin.TextCommand):
-    def onDone(self, text):
+    def on_done(self, text):
         index = {utils.to_non_negative_int(text)}
         current_sel = self.view.sel()
         condition_regions = utils.get_current_sel(current_sel, self.view)
@@ -61,19 +62,45 @@ class KingSelectCsvFieldCommand(sublime_plugin.TextCommand):
         current_sel.add_all(all_regions)
 
     def run(self, edit):
-        self.view.window().show_input_panel('Select i-th column (start from 0): ', '', self.onDone, None, None)        
-
-        # select_type = settings.load_select_type()
-        # pattern = get_select_regex(select_type)
-
-        # current_sel = self.view.sel()
-        # all_regions = self.view.find_all(pattern)
-        # if len(current_sel) > 1 or not current_sel[0].empty():
-        #     all_regions = tuple(filter(lambda r: current_sel.contains(r), all_regions))
-
-        # if len(all_regions) > 0:
-        #     current_sel.clear()
-        #     for region in all_regions:
-        #         current_sel.add(region)
+        self.view.window().show_input_panel('Select i-th column (start from 0): ', '', self.on_done, None, None)
 
 
+class KingInterlacedSelectCommand(sublime_plugin.TextCommand):
+    def onDone(self, text):
+        count = utils.to_positive_int(text)
+
+        current_sel = self.view.sel()
+        all_regions = []
+        i = 0
+        count += 1
+        for region in current_sel:
+            if i % count == 0:
+                all_regions.append(region)
+            i += 1
+
+        current_sel.clear()
+        current_sel.add_all(all_regions)
+
+    def askInterlacedCount(self):
+        self.view.window().show_input_panel('Please the interlaced count', '', self.onDone, None, None)
+
+    def run(self, edit):
+        self.askInterlacedCount()
+
+
+class KingManipulateSelectionCommand(sublime_plugin.TextCommand):
+    def run(self, edit, manipulation):
+        view = self.view
+        calculator = Calculator(manipulation)
+        current_sel = view.sel()
+        all_regions = []
+
+        i = 0
+        for sel in current_sel:
+            result = calculator.calculate(i=i, x=float(view.substr(sel)))
+            if result:
+                all_regions.append(sel)
+            i += 1
+
+        current_sel.clear()
+        current_sel.add_all(all_regions)

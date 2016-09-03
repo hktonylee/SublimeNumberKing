@@ -3,18 +3,26 @@ import sublime
 import sublime_plugin
 
 
+SELECT_TYPE_AUTO = 'auto'
+SELECT_TYPE_INT = 'int'
+SELECT_TYPE_FLOAT = 'float'
+
+
 class Settings:
     def __init__(self):
         self.__settings = sublime.load_settings('Number King.sublime-settings')
 
     def load_select_type(self):
-        return self.__settings.get('SelectType') or 'float'
+        return self.__settings.get('SelectType') or SELECT_TYPE_FLOAT
 
-    def switch_select_type(self):
-        current = self.load_select_type()
-        current = 'int' if current == 'float' else 'float'
-        self.__settings.set('SelectType', current)
-        return current
+    def set_select_type(self, type):
+        self.__settings.set('SelectType', type)
+
+    # def switch_select_type(self):
+    #     current = self.load_select_type()
+    #     current = 'int' if current == 'float' else 'float'
+    #     self.__settings.set('SelectType', current)
+    #     return current
 
     def load_last_used_formula(self):
         return self.__settings.get('LastUsedFormula') or 'x'

@@ -6,7 +6,7 @@
         }
     },
     {
-        "caption": "King: Switch mode (int / float)",
+        "caption": "King: Switch mode (auto / int / float)",
         "command": "king_switch_number_type",
         "args": {
         }

@@ -1,5 +1,7 @@
 
 import sublime, sublime_plugin
+from core.settings import SELECT_TYPE_INT, SELECT_TYPE_FLOAT, SELECT_TYPE_AUTO
+
 
 def parse_csv_line(line):
     def parse(line):
@@ -34,6 +36,7 @@ def parse_csv_line(line):
 
     return parse(line)
 
+
 def get_current_sel(sel, view):
     len_sel = len(sel)
     if len_sel == 0 or (len_sel == 1 and len_sel[0].empty()):
@@ -60,13 +63,16 @@ def to_positive_int(s):
 
 def to_non_negative_int(s):
     return to_int(s, lambda n: n < 0, 'Interlaced count must be non-negative integer.')
-    
+
+
 def get_select_regex(select_type):
-    if select_type == 'int':
+    if select_type == SELECT_TYPE_INT:
         return '-?\d+'
-    elif select_type == 'float':
+    elif select_type == SELECT_TYPE_FLOAT or select_type == SELECT_TYPE_AUTO:
         return '-?\d+(\.\d+)?'
     else:
         raise Exception('Unsupport select number select_type: ' + str(select_type))
 
-    
+
+def infer_select_type():
+    return None
