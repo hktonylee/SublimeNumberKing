@@ -19,28 +19,10 @@ class KingNeedHelpCommand(sublime_plugin.TextCommand):
 
 
 class KingSwitchNumberTypeCommand(sublime_plugin.TextCommand):
-    def mode_select_on_done(self, selected_index):
-        type = None
-        name = None
-        if selected_index == 0:
-            type = SELECT_TYPE_AUTO
-            name = "Auto"
-        elif selected_index == 1:
-            type = SELECT_TYPE_INT
-            name = "Integer"
-        elif selected_index == 2:
-            type = SELECT_TYPE_FLOAT
-            name = "Float"
+    def run(self, edit, select_type=SELECT_TYPE_AUTO):
+        settings.set_select_type(select_type)
+        sublime.status_message('Switched to %s Type' % SELECT_TYPES[select_type])
 
-        if type:
-            settings.set_select_type(type)
-            sublime.status_message('Number type is switched to: ' + name)
-
-    def run(self, edit):
-        sublime.active_window().show_quick_panel(
-            ["Auto (base on first selection)", "Integer", "Float"],
-            self.mode_select_on_done
-        )
 
 
 

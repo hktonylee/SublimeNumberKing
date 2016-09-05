@@ -2,14 +2,20 @@
 import sublime
 import sublime_plugin
 from settings import settings
+import settings
 import utils
 from calculator import Calculator
 
 
-class KingSelectNumberCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
+def get_select_pattern(select_type=None):
+    if select_type is None:
         select_type = settings.load_select_type()
-        pattern = utils.get_select_regex(select_type)
+    return utils.get_select_regex(select_type)
+
+
+class KingSelectNumberCommand(sublime_plugin.TextCommand):
+    def run(self, edit, select_type=settings.SELECT_TYPE_AUTO):
+        pattern = get_select_pattern(select_type)
 
         current_sel = self.view.sel()
         all_regions = []
@@ -22,9 +28,8 @@ class KingSelectNumberCommand(sublime_plugin.TextCommand):
 
 
 class KingSelectAllNumbersCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
-        select_type = settings.load_select_type()
-        pattern = utils.get_select_regex(select_type)
+    def run(self, edit, select_type=settings.SELECT_TYPE_AUTO):
+        pattern = get_select_pattern(select_type)
 
         current_sel = self.view.sel()
         all_regions = self.view.find_all(pattern)
@@ -40,23 +45,23 @@ class KingSelectCsvFieldCommand(sublime_plugin.TextCommand):
     def on_done(self, text):
         index = {utils.to_non_negative_int(text)}
         current_sel = self.view.sel()
-        condition_regions = utils.get_current_sel(current_sel, self.view)
         all_regions = []
-        for region in condition_regions:
-            region = self.view.line(region)
-            for line_region in self.view.split_by_newlines(region):
-                line = self.view.substr(line_region)
-                parser = utils.parse_csv_line(line)
-                try:
-                    i = 0
-                    for item in parser:
-                        if i in index:
-                            sel_start, sel_end = item[1], item[2]
-                            line_start = line_region.begin()
-                            all_regions.append(sublime.Region(line_start + sel_start, line_start + sel_end))
-                        i += 1
-                except StopIteration:
-                    pass    # ignore
+        for region in utils.get_current_sel(current_sel, self.view):
+            if not region.empty():
+                region_line = self.view.line(region)
+                for line_region in self.view.split_by_newlines(region_line):
+                    line = self.view.substr(line_region)
+                    parser = utils.parse_csv_line(line)
+                    try:
+                        i = 0
+                        for item in parser:
+                            if i in index:
+                                sel_start, sel_end = item[1], item[2]
+                                line_start = line_region.begin()
+                                all_regions.append(sublime.Region(line_start + sel_start, line_start + sel_end))
+                            i += 1
+                    except StopIteration:
+                        pass    # ignore
 
         current_sel.clear()
         current_sel.add_all(all_regions)
@@ -89,9 +94,9 @@ class KingInterlacedSelectCommand(sublime_plugin.TextCommand):
 
 
 class KingManipulateSelectionCommand(sublime_plugin.TextCommand):
-    def run(self, edit, manipulation):
+    def run(self, edit, formula):
         view = self.view
-        calculator = Calculator(manipulation)
+        calculator = Calculator(formula)
         current_sel = view.sel()
         all_regions = []
 

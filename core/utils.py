@@ -1,6 +1,6 @@
 
 import sublime, sublime_plugin
-from core.settings import SELECT_TYPE_INT, SELECT_TYPE_FLOAT, SELECT_TYPE_AUTO
+from core.settings import SELECT_TYPE_INT, SELECT_TYPE_FLOAT, SELECT_TYPE_AUTO, SELECT_TYPE_INT_NEAREST
 
 
 def parse_csv_line(line):
@@ -39,7 +39,7 @@ def parse_csv_line(line):
 
 def get_current_sel(sel, view):
     len_sel = len(sel)
-    if len_sel == 0 or (len_sel == 1 and len_sel[0].empty()):
+    if len_sel == 0 or (len_sel == 1 and sel[0].empty()):
         yield sublime.Region(0, view.size())
     else:
         for region in sel:
@@ -66,7 +66,7 @@ def to_non_negative_int(s):
 
 
 def get_select_regex(select_type):
-    if select_type == SELECT_TYPE_INT:
+    if select_type == SELECT_TYPE_INT or select_type == SELECT_TYPE_INT_NEAREST:
         return '-?\d+'
     elif select_type == SELECT_TYPE_FLOAT or select_type == SELECT_TYPE_AUTO:
         return '-?\d+(\.\d+)?'

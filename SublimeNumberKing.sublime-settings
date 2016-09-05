@@ -1,0 +1,8 @@
+{
+	// The number type used in the plugin. Can be "auto", "float", "int" or "int_round_nearest"
+	"SelectType": "auto",
+
+	// Store the last used formula / predicate
+	"LastUsedFormula": "",
+	"LastUsedSelectionPredicate": ""
+}

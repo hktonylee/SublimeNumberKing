@@ -1,0 +1,93 @@
+[
+    {
+        "caption": "King: Help!",
+        "command": "king_need_help",
+        "args": {}
+    },
+    {
+        "caption": "King: Edit Settings",
+        "command": "open_file",
+        "args": {
+            "file": "${packages}/User/SublimeNumberKing.sublime-settings"
+        }
+    },
+    {
+        "caption": "King: Switch to Auto Mode",
+        "command": "king_switch_number_type",
+        "args": {
+            "select_type": "auto"
+        }
+    },
+    {
+        "caption": "King: Switch to Integer Mode (Round Down)",
+        "command": "king_switch_number_type",
+        "args": {
+            "select_type": "integer"
+        }
+    },
+    {
+        "caption": "King: Switch to Integer Mode (Round Nearest)",
+        "command": "king_switch_number_type",
+        "args": {
+            "select_type": "integer_round_nearest"
+        }
+    },
+    {
+        "caption": "King: Switch to Float Mode",
+        "command": "king_switch_number_type",
+        "args": {
+            "select_type": "float"
+        }
+    },
+    {
+        "caption": "King: Select Next Number",
+        "command": "king_select_number",
+        "args": {}
+    },
+    {
+        "caption": "King: Select All Numbers",
+        "command": "king_select_all_numbers",
+        "args": {}
+    },
+    {
+        "caption": "King: Increase by 1",
+        "command": "king_manipulate_number",
+        "args": {
+            "formula": "x + 1"
+        }
+    },
+    {
+        "caption": "King: Decrease by 1",
+        "command": "king_manipulate_number",
+        "args": {
+            "formula": "x - 1"
+        }
+    },
+    {
+        "caption": "King: Number Sequence",
+        "command": "king_manipulate_number",
+        "args": {
+            "formula": "i + 1"
+        }
+    },
+    {
+        "caption": "King: Transform Numbers",
+        "command": "king_wonderfully_manipulate",
+        "args": {}
+    },
+    {
+        "caption": "King: Modify Selection",
+        "command": "king_wonderfully_manipulate_selection",
+        "args": {}
+    },
+    {
+        "caption": "King: Select Interlaced",
+        "command": "king_interlaced_select",
+        "args": {}
+    },
+    {
+        "caption": "King: [CSV] Select i-th column in CSV",
+        "command": "king_select_csv_field",
+        "args": {}
+    }
+]
