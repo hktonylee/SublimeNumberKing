@@ -92,20 +92,3 @@ class KingInterlacedSelectCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         self.askInterlacedCount()
 
-
-class KingManipulateSelectionCommand(sublime_plugin.TextCommand):
-    def run(self, edit, formula):
-        view = self.view
-        calculator = Calculator(formula)
-        current_sel = view.sel()
-        all_regions = []
-
-        i = 0
-        for sel in current_sel:
-            result = calculator.calculate(i=i, x=float(view.substr(sel)))
-            if result:
-                all_regions.append(sel)
-            i += 1
-
-        current_sel.clear()
-        current_sel.add_all(all_regions)
