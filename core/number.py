@@ -7,6 +7,20 @@ from settings import *
 from calculator import Calculator
 
 
+def string_to_float(s):
+    if s:
+        return float(s)
+    else:
+        return 0.0
+
+
+def string_to_int(s):
+    if s:
+        return int(s)
+    else:
+        return 0
+
+
 class KingWonderfullyManipulateSelectionCommand(sublime_plugin.TextCommand):
     def on_done(self, text):
         settings.set_last_used_selection_predicate(text)
@@ -42,19 +56,19 @@ class KingManipulateNumberCommand(sublime_plugin.TextCommand):
 
         if select_type == SELECT_TYPE_AUTO:
             for i, sel in enumerate(current_sel):
-                result = calculator.calculate(i=i, x=float(view.substr(sel)))
+                result = calculator.calculate(i=i, x=string_to_float(view.substr(sel)))
                 if isinstance(result, float) and float.is_integer(result):
                     result = int(result)
                 view.replace(edit, sel, str(result))
 
         elif select_type == SELECT_TYPE_FLOAT:
             for i, sel in enumerate(current_sel):
-                result = calculator.calculate(i=i, x=float(view.substr(sel)))
+                result = calculator.calculate(i=i, x=string_to_float(view.substr(sel)))
                 view.replace(edit, sel, str(float(result)))
 
         elif select_type in (SELECT_TYPE_INT, SELECT_TYPE_INT_NEAREST):
             for i, sel in enumerate(current_sel):
-                result = calculator.calculate(i=i, x=int(view.substr(sel)))
+                result = calculator.calculate(i=i, x=string_to_int(view.substr(sel)))
                 if select_type == SELECT_TYPE_INT_NEAREST:
                     view.replace(edit, sel, str(int(round(result))))
                 else:
