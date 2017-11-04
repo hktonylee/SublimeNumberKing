@@ -5,11 +5,12 @@ import os
 import sys
 
 
-BASE_DIR = os.path.dirname(__file__)
-sys.path.append(BASE_DIR)
-sys.path.extend(map(lambda x: os.path.join(BASE_DIR, x), ['core']))
-
-from core import *
+from .core import *
+from .core.number import *
+from .core.selection import *
+from .core.settings import settings
+from .core.settings import SELECT_TYPES
+from .core.settings import SELECT_TYPE_AUTO
 
 
 class KingNeedHelpCommand(sublime_plugin.TextCommand):

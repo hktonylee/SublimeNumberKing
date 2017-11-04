@@ -1,6 +1,6 @@
 
 import sublime, sublime_plugin
-from core.settings import SELECT_TYPE_INT, SELECT_TYPE_FLOAT, SELECT_TYPE_AUTO, SELECT_TYPE_INT_NEAREST
+from .settings import SELECT_TYPE_INT, SELECT_TYPE_FLOAT, SELECT_TYPE_AUTO, SELECT_TYPE_INT_NEAREST
 
 
 def parse_csv_line(line):

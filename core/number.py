@@ -2,9 +2,9 @@
 import sys
 import sublime
 import sublime_plugin
-from core import utils
-from settings import *
-from calculator import Calculator
+from . import utils
+from .settings import *
+from .calculator import Calculator
 
 
 def string_to_float(s):
