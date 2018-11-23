@@ -1,15 +1,13 @@
 
 import sublime
 import sublime_plugin
-from settings import settings
-import settings
-import utils
-from calculator import Calculator
+from . import settings
+from . import utils
 
 
 def get_select_pattern(select_type=None):
     if select_type is None:
-        select_type = settings.load_select_type()
+        select_type = settings.settings.load_select_type()
     return utils.get_select_regex(select_type)
 
 
